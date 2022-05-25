@@ -1,0 +1,35 @@
+/tool netwatch
+add comment="enable/disable dhcp(server_network_lease)" down-script=\
+    "import file-name=dhcp-server-backup.rsc\r\
+    \n" host=30.30.30.1 interval=5s up-script="/ip dhcp-server remove [find]\r\
+    \n/ip dhcp-server network remove [find]\r\
+    \n/ip dhcp-server lease remove [find]\r\
+    \n/ip dhcp-server disable [find]"
+add comment="enable/disable interface public" down-script=\
+    "/interface set numbers=[find where name=ether7-Public] disabled=no" host=\
+    30.30.30.1 interval=5s up-script=\
+    "/interface set numbers=[find where name=ether7-Public] disabled=yes"
+add comment="enable/disable firewall(filter_nat_mangle_addresslist)" \
+    down-script="import file-name=ip-firewall-backup.rsc" host=30.30.30.1 \
+    interval=5s up-script="/ip firewall filter remove [find]\r\
+    \n/ip firewall nat remove [find]\r\
+    \n/ip firewall mangle remove [find]\r\
+    \n/ip firewall address-list remove [find]\r\
+    \n/ip firewall layer7-protocol remove [find]"
+add comment="enable/disable ppp(secret_profile)" down-script=\
+    "import file-name=ppp-backup.rsc" host=30.30.30.1 interval=5s up-script="/pp\
+    p secret remove [find]\r\
+    \n/ppp profile remove [find local-address=172.16.102.1]"
+add comment="enable/disable route" down-script="ip route remove [find where comm\
+    ent~\"!\"]\r\
+    \nimport file-name=ip-route-backup.rsc" host=30.30.30.1 interval=5s \
+    up-script="ip route remove [find where comment~\"!\"]"
+add comment="enable/disable dns" down-script=\
+    "import file-name=ip-dns-backup.rsc\r\
+    \n" host=30.30.30.1 interval=5s up-script="/ip dns remove [find]"
+add comment="enable/disable pool" down-script=\
+    "import file-name=ip-pool-backup.rsc" host=30.30.30.1 interval=5s \
+    up-script="/ip pool remove [find]"
+add comment="push ip service" down-script=\
+    "import file-name=ip-service-backup.rsc" host=30.30.30.1 interval=5s \
+    up-script="import file-name=ip-service-backup.rsc"
