@@ -1,0 +1,69 @@
+/system scheduler
+add interval=10s name=schedule_export_ip_dhcp on-event="/ip dhcp-server export\
+    \_file=dhcp-server\r\
+    \n/tool fetch address=30.30.30.2 mode=ftp user=mantap password=Mantap123 \
+    \\\r\
+    \nsrc-path=dhcp-server.rsc \\\r\
+    \ndst-path=dhcp-server-backup.rsc \\\r\
+    \nport=21 upload=yes" policy=\
+    ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
+    start-time=startup
+add interval=10s name=schedule_export_ip_firewall on-event="/ip firewall expor\
+    t file=ip-firewall.rsc\r\
+    \n/tool fetch address=30.30.30.2 mode=ftp user=mantap password=Mantap123! \
+    \\\r\
+    \nsrc-path=ip-firewall.rsc \\\r\
+    \ndst-path=ip-firewall-backup.rsc \\\r\
+    \nport=21 upload=yes" policy=\
+    ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
+    start-time=startup
+add interval=10s name=schedule_export_ppp on-event="/ppp export file=ppp\r\
+    \n/tool fetch address=30.30.30.2 mode=ftp user=mantap password=Mantap123! \
+    \\\r\
+    \nsrc-path=ppp.rsc \\\r\
+    \ndst-path=ppp-backup.rsc \\\r\
+    \nport=21 upload=yes" policy=\
+    ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
+    start-time=startup
+add interval=10s name=schedule_export_ip_route on-event="/ip route export file\
+    =ip-route\r\
+    \n/tool fetch address=30.30.30.2 mode=ftp user=mantap password=Mantap123! \
+    \\\r\
+    \nsrc-path=ip-route.rsc \\\r\
+    \ndst-path=ip-route-backup.rsc \\\r\
+    \nport=21 upload=yes" policy=\
+    ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
+    start-time=startup
+add interval=10s name=schedule_netwatch on-event="/tool netwatch enable [find \
+    where interval=5]\r\
+    \n/tool netwatch disable [find where interval=5]\r\
+    \n/tool netwatch enable [find where interval=5]" policy=\
+    ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
+    start-time=startup
+add interval=10s name=schedule_export_ip_dns on-event="/ip dns export file=ip-\
+    dns\r\
+    \n/tool fetch address=30.30.30.2 mode=ftp user=mantap password=Mantap123! \
+    \\\r\
+    \nsrc-path=ip-dns.rsc \\\r\
+    \ndst-path=ip-dns-backup.rsc \\\r\
+    \nport=21 upload=yes" policy=\
+    ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
+    start-time=startup
+add interval=10s name=schedule_export_ip_pool on-event="/ip pool export file=i\
+    p-pool\r\
+    \n/tool fetch address=30.30.30.2 mode=ftp user=mantap password=Mantap123! \
+    \\\r\
+    \nsrc-path=ip-pool.rsc \\\r\
+    \ndst-path=ip-pool-backup.rsc \\\r\
+    \nport=21 upload=yes" policy=\
+    ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
+    start-time=startup
+add interval=10s name=schedule_export_ip_service on-event="/ip service export \
+    file=ip-service\r\
+    \n/tool fetch address=30.30.30.2 mode=ftp user=mantap password=Mantap123! \
+    \\\r\
+    \nsrc-path=ip-service.rsc \\\r\
+    \ndst-path=ip-service-backup.rsc \\\r\
+    \nport=21 upload=yes" policy=\
+    ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
+    start-time=startup
