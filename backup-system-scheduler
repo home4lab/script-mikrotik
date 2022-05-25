@@ -1,0 +1,7 @@
+/system scheduler
+add comment="disable/enable netwatch" interval=10s name=schedule_netwatch on-event="/tool netwatch enable\
+    \_[find where status=unknown]\r\
+    \n/tool netwatch enable [find where status=down]\r\
+    \n/tool netwatch disable [find where status=down]\r\
+    \n/tool netwatch enable [find where status=down]\r\
+    \n" policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon start-time=startup
